@@ -1,0 +1,11 @@
+AbstractTextEditor.Color.Background=0,0,0
+eclipse.preferences.version=1
+lineNumberRuler=true
+overviewRuler_migration=migrated_3.1
+printMargin=true
+printMarginAllowOverride=true
+printMarginColumn=120
+showWhitespaceCharacters=true
+spacesForTabs=true
+spellingEnabled=true
+whitespaceCharacterAlphaValue=25

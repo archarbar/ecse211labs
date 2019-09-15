@@ -1,0 +1,49 @@
+package ca.mcgill.ecse211.lab1;
+
+import static ca.mcgill.ecse211.lab1.Resources.*;
+
+public class BangBangController extends UltrasonicController {
+
+  public BangBangController() {
+    LEFT_MOTOR.setSpeed(MOTOR_HIGH); // Start robot moving forward
+    RIGHT_MOTOR.setSpeed(MOTOR_HIGH);
+    LEFT_MOTOR.forward();
+    RIGHT_MOTOR.forward();
+  }
+
+  @Override
+  public void processUSData(int distance) {
+    filter(distance);
+    
+    //if in the middle, go straight
+    if(BAND_CENTER-BAND_WIDTH <= distance && distance <= BAND_CENTER+BAND_WIDTH) {
+      LEFT_MOTOR.setSpeed(MOTOR_HIGH); // Start robot moving forward
+      RIGHT_MOTOR.setSpeed(MOTOR_HIGH);
+      LEFT_MOTOR.forward();
+      RIGHT_MOTOR.forward();
+    }
+    
+    //else if too close, go right
+    else if (BAND_CENTER-BAND_WIDTH >= distance) {
+      LEFT_MOTOR.setSpeed(MOTOR_HIGH); // turn left
+      RIGHT_MOTOR.setSpeed(MOTOR_LOW);
+      LEFT_MOTOR.forward();
+      RIGHT_MOTOR.forward();
+    }
+    
+    //else go left
+    else {
+      LEFT_MOTOR.setSpeed(MOTOR_LOW); // Start robot moving forward
+      RIGHT_MOTOR.setSpeed(MOTOR_HIGH);
+      LEFT_MOTOR.forward();
+      RIGHT_MOTOR.forward();
+    }
+    
+    // TODO: process a movement based on the us distance passed in (BANG-BANG style)
+  }
+
+  @Override
+  public int readUSDistance() {
+    return this.distance;
+  }
+}
