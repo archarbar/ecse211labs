@@ -9,7 +9,7 @@ public class OdometryCorrection implements Runnable {
   private Odometer odometer;
   private float[] csData;
   private SampleProvider colorSampleProvider= colorSensor.getRedMode();
-  private static final float LINE_RED_INTENSITY = 0.25f;
+  private static final float LINE_RED_INTENSITY = 0.3f;
   
   public OdometryCorrection() {
     this.odometer = Odometer.getOdometer();
@@ -20,9 +20,8 @@ public class OdometryCorrection implements Runnable {
    */
   public void run() {
     long correctionStart, correctionEnd;
-    float lastSensorData;
     int tileCountX = 0, tileCountY = 0;
-    //set initial odometer position to center of tile
+    //set initial odometer position to 0
     odometer.setX(0);
     odometer.setY(0);
 
@@ -39,25 +38,26 @@ public class OdometryCorrection implements Runnable {
         double currentPosition[] = odometer.getXYT();
         double x = currentPosition[0];
         double y = currentPosition[1];
-        double currentTheta = currentPosition[2];
+        double theta = currentPosition[2];
         
-        // if increasing the direction, update the counter first, if decreasing the direction, update the counter after calculating current location
-        if (north(currentTheta)) { //increasing Y direction
+        // if going north or east, increase tile count before calculation.
+        // if going south or west, decrease tile count after calculation.
+        if (north(theta)) { //if going north (increasing y direction)
           tileCountY++;
           y = TILE_SIZE*tileCountY;
-        } else if (east(currentTheta)) { //increasing X direction
-          tileCountX++;
-          x = TILE_SIZE*tileCountX;
-        } else if (south(currentTheta)) { //decreasing Y direction
+        } else if (south(theta)) { //if going south (decreasing y direction)
           y = TILE_SIZE*tileCountY;
           tileCountY--;
-        } else if (west(currentTheta)) { //decreasing X direction
+        } else if (east(theta)) { //if going east (increasing x direction)
+          tileCountX++;
+          x = TILE_SIZE*tileCountX;
+        } else if (west(theta)) { //if going west (decreasing x direction)
           x = TILE_SIZE*tileCountX;
           tileCountX--;
         }
 
-        // Updates the odometer with new calculated (and more accurate) values.
-        odometer.setXYT(x,y,currentTheta);
+        // update the odometer values with data from the light sensor
+        odometer.setXYT(x,y,theta);
       }
       // this ensures the odometry correction occurs only once every period
       correctionEnd = System.currentTimeMillis();
@@ -67,20 +67,17 @@ public class OdometryCorrection implements Runnable {
     }
   }
 
-  private boolean north(double theta) {
+  private boolean north(double theta) { // verify angle to check if robot going north
     return (theta<45 || theta>315);
   }
-  private boolean south(double theta) {
-    int direction = 180;
-    return (theta<direction+45 && theta>direction-45);
+  private boolean south(double theta) { // verify angle to check if robot going south
+    return (theta<225 && theta>135);
   }
-  private boolean west(double theta) {
-    int direction = 270;
-    return (theta<direction+45 && theta>direction-45);
+  private boolean west(double theta) { // verify angle to check if robot going west
+    return (theta<315 && theta>225);
   }
-  private boolean east(double theta) {
-    int direction = 90;
-    return (theta<direction+45 && theta>direction-45);
+  private boolean east(double theta) { // verify angle to check if robot going east
+    return (theta<135 && theta>45); 
   }
 
 

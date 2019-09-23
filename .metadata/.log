@@ -2156,3 +2156,71 @@ Caused by: java.lang.IllegalStateException: Expected BEGIN_OBJECT but was STRING
 	at com.google.gson.stream.JsonReader.beginObject(JsonReader.java:385)
 	at com.google.gson.internal.bind.ReflectiveTypeAdapterFactory$Adapter.read(ReflectiveTypeAdapterFactory.java:213)
 	... 9 more
+
+!ENTRY org.lejos.ev3.ldt 4 0 2019-09-23 15:16:49.351
+!MESSAGE Connection refused to host: 192.168.2.47; nested exception is: 
+	java.net.ConnectException: Connection timed out: connect
+!STACK 0
+java.rmi.ConnectException: Connection refused to host: 192.168.2.47; nested exception is: 
+	java.net.ConnectException: Connection timed out: connect
+	at sun.rmi.transport.tcp.TCPEndpoint.newSocket(Unknown Source)
+	at sun.rmi.transport.tcp.TCPChannel.createConnection(Unknown Source)
+	at sun.rmi.transport.tcp.TCPChannel.newConnection(Unknown Source)
+	at sun.rmi.server.UnicastRef.newCall(Unknown Source)
+	at sun.rmi.registry.RegistryImpl_Stub.lookup(Unknown Source)
+	at java.rmi.Naming.lookup(Unknown Source)
+	at org.lejos.ev3.ldt.launch.LaunchEV3ConfigDelegate.launch(LaunchEV3ConfigDelegate.java:220)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:885)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:739)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:1039)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin$8.run(DebugUIPlugin.java:1256)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:56)
+Caused by: java.net.ConnectException: Connection timed out: connect
+	at java.net.DualStackPlainSocketImpl.connect0(Native Method)
+	at java.net.DualStackPlainSocketImpl.socketConnect(Unknown Source)
+	at java.net.AbstractPlainSocketImpl.doConnect(Unknown Source)
+	at java.net.AbstractPlainSocketImpl.connectToAddress(Unknown Source)
+	at java.net.AbstractPlainSocketImpl.connect(Unknown Source)
+	at java.net.PlainSocketImpl.connect(Unknown Source)
+	at java.net.SocksSocketImpl.connect(Unknown Source)
+	at java.net.Socket.connect(Unknown Source)
+	at java.net.Socket.connect(Unknown Source)
+	at java.net.Socket.<init>(Unknown Source)
+	at java.net.Socket.<init>(Unknown Source)
+	at sun.rmi.transport.proxy.RMIDirectSocketFactory.createSocket(Unknown Source)
+	at sun.rmi.transport.proxy.RMIMasterSocketFactory.createSocket(Unknown Source)
+	... 12 more
+
+!ENTRY org.lejos.ev3.ldt 4 0 2019-09-23 15:57:49.399
+!MESSAGE Exception creating connection to: 192.168.2.47; nested exception is: 
+	java.net.SocketException: Software caused connection abort: connect
+!STACK 0
+java.rmi.ConnectIOException: Exception creating connection to: 192.168.2.47; nested exception is: 
+	java.net.SocketException: Software caused connection abort: connect
+	at sun.rmi.transport.tcp.TCPEndpoint.newSocket(Unknown Source)
+	at sun.rmi.transport.tcp.TCPChannel.createConnection(Unknown Source)
+	at sun.rmi.transport.tcp.TCPChannel.newConnection(Unknown Source)
+	at sun.rmi.server.UnicastRef.newCall(Unknown Source)
+	at sun.rmi.registry.RegistryImpl_Stub.lookup(Unknown Source)
+	at java.rmi.Naming.lookup(Unknown Source)
+	at org.lejos.ev3.ldt.launch.LaunchEV3ConfigDelegate.launch(LaunchEV3ConfigDelegate.java:220)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:885)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:739)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:1039)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin$8.run(DebugUIPlugin.java:1256)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:56)
+Caused by: java.net.SocketException: Software caused connection abort: connect
+	at java.net.DualStackPlainSocketImpl.connect0(Native Method)
+	at java.net.DualStackPlainSocketImpl.socketConnect(Unknown Source)
+	at java.net.AbstractPlainSocketImpl.doConnect(Unknown Source)
+	at java.net.AbstractPlainSocketImpl.connectToAddress(Unknown Source)
+	at java.net.AbstractPlainSocketImpl.connect(Unknown Source)
+	at java.net.PlainSocketImpl.connect(Unknown Source)
+	at java.net.SocksSocketImpl.connect(Unknown Source)
+	at java.net.Socket.connect(Unknown Source)
+	at java.net.Socket.connect(Unknown Source)
+	at java.net.Socket.<init>(Unknown Source)
+	at java.net.Socket.<init>(Unknown Source)
+	at sun.rmi.transport.proxy.RMIDirectSocketFactory.createSocket(Unknown Source)
+	at sun.rmi.transport.proxy.RMIMasterSocketFactory.createSocket(Unknown Source)
+	... 12 more
