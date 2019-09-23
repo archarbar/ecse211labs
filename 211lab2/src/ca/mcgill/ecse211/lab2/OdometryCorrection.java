@@ -2,12 +2,14 @@ package ca.mcgill.ecse211.lab2;
 
 import static ca.mcgill.ecse211.lab2.Resources.*;
 import lejos.robotics.SampleProvider;
+import lejos.hardware.Sound;
 
 public class OdometryCorrection implements Runnable {
   private static final long CORRECTION_PERIOD = 10;
   private Odometer odometer;
   private float[] csData;
   private SampleProvider colorSampleProvider= colorSensor.getRedMode();
+  private static final float LINE_RED_INTENSITY = 0.25f;
   
   public OdometryCorrection() {
     this.odometer = Odometer.getOdometer();
@@ -21,24 +23,19 @@ public class OdometryCorrection implements Runnable {
     float lastSensorData;
     int tileCountX = 0, tileCountY = 0;
     //set initial odometer position to center of tile
-    odometer.setX(TILE_SIZE/2);
-    odometer.setY(TILE_SIZE/2);
+    odometer.setX(0);
+    odometer.setY(0);
 
     while (true) {
       correctionStart = System.currentTimeMillis();
 
       // TODO Trigger correction (When do I have information to correct?)
       colorSampleProvider.fetchSample(csData, 0); //retrieve data from sensor
-      csData[0] *= 1000; //scale sensor output to make it easier to read and more accurate
-
-
-      boolean correcting = false;
-
-
 
 
       // TODO Calculate new (accurate) robot position
-      if (correcting) {
+      if(csData[0] < LINE_RED_INTENSITY) {
+        Sound.beep();
         double currentPosition[] = odometer.getXYT();
         double x = currentPosition[0];
         double y = currentPosition[1];
