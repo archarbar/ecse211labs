@@ -1713,3 +1713,110 @@ org.eclipse.core.runtime.CoreException: The Class File Viewer cannot handle the 
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1499)
 !SUBENTRY 2 org.eclipse.jdt.ui 4 996 2019-09-22 17:37:50.907
 !MESSAGE The Class File Viewer cannot handle the given input ('org.eclipse.ui.ide.FileStoreEditorInput').
+
+!ENTRY org.lejos.ev3.ldt 4 0 2019-09-22 19:50:16.450
+!MESSAGE Connection refused to host: 192.168.2.25; nested exception is: 
+	java.net.ConnectException: Connection timed out: connect
+!STACK 0
+java.rmi.ConnectException: Connection refused to host: 192.168.2.25; nested exception is: 
+	java.net.ConnectException: Connection timed out: connect
+	at sun.rmi.transport.tcp.TCPEndpoint.newSocket(Unknown Source)
+	at sun.rmi.transport.tcp.TCPChannel.createConnection(Unknown Source)
+	at sun.rmi.transport.tcp.TCPChannel.newConnection(Unknown Source)
+	at sun.rmi.server.UnicastRef.newCall(Unknown Source)
+	at sun.rmi.registry.RegistryImpl_Stub.lookup(Unknown Source)
+	at java.rmi.Naming.lookup(Unknown Source)
+	at org.lejos.ev3.ldt.launch.LaunchEV3ConfigDelegate.launch(LaunchEV3ConfigDelegate.java:220)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:885)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:739)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:1039)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin$8.run(DebugUIPlugin.java:1256)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:56)
+Caused by: java.net.ConnectException: Connection timed out: connect
+	at java.net.DualStackPlainSocketImpl.connect0(Native Method)
+	at java.net.DualStackPlainSocketImpl.socketConnect(Unknown Source)
+	at java.net.AbstractPlainSocketImpl.doConnect(Unknown Source)
+	at java.net.AbstractPlainSocketImpl.connectToAddress(Unknown Source)
+	at java.net.AbstractPlainSocketImpl.connect(Unknown Source)
+	at java.net.PlainSocketImpl.connect(Unknown Source)
+	at java.net.SocksSocketImpl.connect(Unknown Source)
+	at java.net.Socket.connect(Unknown Source)
+	at java.net.Socket.connect(Unknown Source)
+	at java.net.Socket.<init>(Unknown Source)
+	at java.net.Socket.<init>(Unknown Source)
+	at sun.rmi.transport.proxy.RMIDirectSocketFactory.createSocket(Unknown Source)
+	at sun.rmi.transport.proxy.RMIMasterSocketFactory.createSocket(Unknown Source)
+	... 12 more
+
+!ENTRY org.lejos.ev3.ldt 4 0 2019-09-22 19:52:19.772
+!MESSAGE Connection refused to host: 192.168.2.25; nested exception is: 
+	java.net.ConnectException: Connection timed out: connect
+!STACK 0
+java.rmi.ConnectException: Connection refused to host: 192.168.2.25; nested exception is: 
+	java.net.ConnectException: Connection timed out: connect
+	at sun.rmi.transport.tcp.TCPEndpoint.newSocket(Unknown Source)
+	at sun.rmi.transport.tcp.TCPChannel.createConnection(Unknown Source)
+	at sun.rmi.transport.tcp.TCPChannel.newConnection(Unknown Source)
+	at sun.rmi.server.UnicastRef.newCall(Unknown Source)
+	at sun.rmi.registry.RegistryImpl_Stub.lookup(Unknown Source)
+	at java.rmi.Naming.lookup(Unknown Source)
+	at org.lejos.ev3.ldt.launch.LaunchEV3ConfigDelegate.launch(LaunchEV3ConfigDelegate.java:220)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:885)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:739)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:1039)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin$8.run(DebugUIPlugin.java:1256)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:56)
+Caused by: java.net.ConnectException: Connection timed out: connect
+	at java.net.DualStackPlainSocketImpl.connect0(Native Method)
+	at java.net.DualStackPlainSocketImpl.socketConnect(Unknown Source)
+	at java.net.AbstractPlainSocketImpl.doConnect(Unknown Source)
+	at java.net.AbstractPlainSocketImpl.connectToAddress(Unknown Source)
+	at java.net.AbstractPlainSocketImpl.connect(Unknown Source)
+	at java.net.PlainSocketImpl.connect(Unknown Source)
+	at java.net.SocksSocketImpl.connect(Unknown Source)
+	at java.net.Socket.connect(Unknown Source)
+	at java.net.Socket.connect(Unknown Source)
+	at java.net.Socket.<init>(Unknown Source)
+	at java.net.Socket.<init>(Unknown Source)
+	at sun.rmi.transport.proxy.RMIDirectSocketFactory.createSocket(Unknown Source)
+	at sun.rmi.transport.proxy.RMIMasterSocketFactory.createSocket(Unknown Source)
+	... 12 more
+
+!ENTRY org.lejos.ev3.ldt 4 0 2019-09-22 19:54:37.607
+!MESSAGE Exception creating connection to: 192.168.2.25; nested exception is: 
+	java.net.SocketException: Software caused connection abort: connect
+!STACK 0
+java.rmi.ConnectIOException: Exception creating connection to: 192.168.2.25; nested exception is: 
+	java.net.SocketException: Software caused connection abort: connect
+	at sun.rmi.transport.tcp.TCPEndpoint.newSocket(Unknown Source)
+	at sun.rmi.transport.tcp.TCPChannel.createConnection(Unknown Source)
+	at sun.rmi.transport.tcp.TCPChannel.newConnection(Unknown Source)
+	at sun.rmi.server.UnicastRef.newCall(Unknown Source)
+	at sun.rmi.registry.RegistryImpl_Stub.lookup(Unknown Source)
+	at java.rmi.Naming.lookup(Unknown Source)
+	at org.lejos.ev3.ldt.launch.LaunchEV3ConfigDelegate.launch(LaunchEV3ConfigDelegate.java:220)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:885)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:739)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:1039)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin$8.run(DebugUIPlugin.java:1256)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:56)
+Caused by: java.net.SocketException: Software caused connection abort: connect
+	at java.net.DualStackPlainSocketImpl.connect0(Native Method)
+	at java.net.DualStackPlainSocketImpl.socketConnect(Unknown Source)
+	at java.net.AbstractPlainSocketImpl.doConnect(Unknown Source)
+	at java.net.AbstractPlainSocketImpl.connectToAddress(Unknown Source)
+	at java.net.AbstractPlainSocketImpl.connect(Unknown Source)
+	at java.net.PlainSocketImpl.connect(Unknown Source)
+	at java.net.SocksSocketImpl.connect(Unknown Source)
+	at java.net.Socket.connect(Unknown Source)
+	at java.net.Socket.connect(Unknown Source)
+	at java.net.Socket.<init>(Unknown Source)
+	at java.net.Socket.<init>(Unknown Source)
+	at sun.rmi.transport.proxy.RMIDirectSocketFactory.createSocket(Unknown Source)
+	at sun.rmi.transport.proxy.RMIMasterSocketFactory.createSocket(Unknown Source)
+	... 12 more
+
+!ENTRY org.eclipse.core.resources 2 2 2019-09-22 20:46:07.115
+!MESSAGE Save operation warnings.
+!SUBENTRY 1 org.eclipse.core.resources 2 234 2019-09-22 20:46:07.115
+!MESSAGE The project description file (.project) for '211 lab2' was missing.  This file contains important information about the project.  A new project description file has been created, but some information about the project may have been lost.
