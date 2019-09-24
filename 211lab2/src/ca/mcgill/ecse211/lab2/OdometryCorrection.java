@@ -8,8 +8,8 @@ public class OdometryCorrection implements Runnable {
   private static final long CORRECTION_PERIOD = 10;
   private Odometer odometer;
   private float[] csData;
-  private SampleProvider colorSampleProvider= colorSensor.getRedMode();
-  private static final float LINE_RED_INTENSITY = 0.3f;
+  private SampleProvider colorSampleProvider= colorSensor.getRedMode(); // use a red light to compare luminence level
+  private static final float LINE_RED_INTENSITY = (float) 0.3; // cast to float since default is double
   
   public OdometryCorrection() {
     this.odometer = Odometer.getOdometer();
@@ -20,42 +20,42 @@ public class OdometryCorrection implements Runnable {
    */
   public void run() {
     long correctionStart, correctionEnd;
-    int tileCountX = 0, tileCountY = 0;
+    
     //set initial odometer position to 0
     odometer.setX(0);
     odometer.setY(0);
 
+    int XtileCount = 0, YtileCount = 0;
     while (true) {
       correctionStart = System.currentTimeMillis();
 
       // TODO Trigger correction (When do I have information to correct?)
-      colorSampleProvider.fetchSample(csData, 0); //retrieve data from sensor
-
-
       // TODO Calculate new (accurate) robot position
-      if(csData[0] < LINE_RED_INTENSITY) {
-        Sound.beep();
+      colorSampleProvider.fetchSample(csData, 0); //get data from sensor
+      if(csData[0] < LINE_RED_INTENSITY) { //if light read by sensor is smaller (darker) than red light, eg., black lines
+        Sound.beep(); // sound alert to know when the sensor hits a line
         double currentPosition[] = odometer.getXYT();
-        double x = currentPosition[0];
-        double y = currentPosition[1];
-        double theta = currentPosition[2];
+        double x = currentPosition[0]; //get current x position
+        double y = currentPosition[1]; //get current y position
+        double theta = currentPosition[2]; // get current theta angle
         
         // if going north or east, increase tile count before calculation.
         // if going south or west, decrease tile count after calculation.
         if (north(theta)) { //if going north (increasing y direction)
-          tileCountY++;
-          y = TILE_SIZE*tileCountY;
+          YtileCount++;
+          y = TILE_SIZE*YtileCount;
         } else if (south(theta)) { //if going south (decreasing y direction)
-          y = TILE_SIZE*tileCountY;
-          tileCountY--;
+          y = TILE_SIZE*YtileCount;
+          YtileCount--;
         } else if (east(theta)) { //if going east (increasing x direction)
-          tileCountX++;
-          x = TILE_SIZE*tileCountX;
+          XtileCount++;
+          x = TILE_SIZE*XtileCount;
         } else if (west(theta)) { //if going west (decreasing x direction)
-          x = TILE_SIZE*tileCountX;
-          tileCountX--;
+          x = TILE_SIZE*XtileCount;
+          XtileCount--;
         }
 
+        //TODO Update odometer with new calculated (and more accurate) values
         // update the odometer values with data from the light sensor
         odometer.setXYT(x,y,theta);
       }
@@ -67,16 +67,16 @@ public class OdometryCorrection implements Runnable {
     }
   }
 
-  private boolean north(double theta) { // verify angle to check if robot going north
+  boolean north(double theta) { // verify angle to check if robot going north
     return (theta<45 || theta>315);
   }
-  private boolean south(double theta) { // verify angle to check if robot going south
+  boolean south(double theta) { // verify angle to check if robot going south
     return (theta<225 && theta>135);
   }
-  private boolean west(double theta) { // verify angle to check if robot going west
+  boolean west(double theta) { // verify angle to check if robot going west
     return (theta<315 && theta>225);
   }
-  private boolean east(double theta) { // verify angle to check if robot going east
+  boolean east(double theta) { // verify angle to check if robot going east
     return (theta<135 && theta>45); 
   }
 
