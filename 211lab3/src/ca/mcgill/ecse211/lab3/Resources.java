@@ -1,10 +1,11 @@
-package ca.mcgill.ecse211.lab2;
+package ca.mcgill.ecse211.lab3;
 
 import lejos.hardware.ev3.LocalEV3;
 import lejos.hardware.lcd.TextLCD;
 import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.hardware.port.SensorPort;
 import lejos.hardware.sensor.EV3ColorSensor;
+import lejos.hardware.sensor.EV3UltrasonicSensor;
 
 /**
  * This class is used to define static resources in one place for easy access and to avoid 
@@ -39,6 +40,8 @@ public class Resources {
    */
   public static final int ACCELERATION = 3000;
   
+  public static final int FILTER_OUT = 20;
+  
   /**
    * Timeout period in milliseconds.
    */
@@ -48,6 +51,12 @@ public class Resources {
    * The tile size in centimeters.
    */
   public static final double TILE_SIZE = 30.48;
+  
+  /**
+   * The ultrasonic sensor.
+   */
+  public static final EV3UltrasonicSensor US_SENSOR = 
+      new EV3UltrasonicSensor(LocalEV3.get().getPort("S2"));
   
   /**
    * The left motor.
