@@ -5,12 +5,16 @@ import lejos.hardware.Button;
 
 // static import to avoid duplicating variables and make the code easier to read
 import static ca.mcgill.ecse211.lab3.Resources.*;
+import ca.mcgill.ecse211.lab3.UltrasonicController;
+import ca.mcgill.ecse211.lab3.UltrasonicPoller;
+
 
 /**
  * The main driver class for the odometry lab.
  */
 public class Main {
 
+  public static UltrasonicController selectedController;
   /**
    * The main entry point.
    * 
@@ -24,8 +28,12 @@ public class Main {
 
     if (buttonChoice == Button.ID_LEFT) {
       new Thread(new Navigation()).start();
-    } else {
-      // navigation with avoidance
+    }
+    else {
+      new Thread(sweeper).start();
+      selectedController = new NavigationCorrection();
+      new Thread(new NavigationCorrection()).start();
+      new Thread(new UltrasonicPoller()).start();
     }
     
     new Thread(new Display()).start();
@@ -44,8 +52,9 @@ public class Main {
     int buttonChoice;
     Display.showText("< Left | Right >",
                      "       |        ",
-                     " No | With  ",
-                     "avoidance | avoidance");
+                     " No    | With   ",
+                     "avoidan| avoidan",
+                     " -ce   | -ce    ");
     
     do {
       buttonChoice = Button.waitForAnyPress(); // left or right press

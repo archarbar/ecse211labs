@@ -1,6 +1,7 @@
 package ca.mcgill.ecse211.lab3;
 
 import static ca.mcgill.ecse211.lab3.Resources.*;
+import ca.mcgill.ecse211.lab3.Main;
 
 /**
  * Samples the US sensor and invokes the selected controller on each cycle.

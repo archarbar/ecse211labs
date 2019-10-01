@@ -1,13 +1,21 @@
 package ca.mcgill.ecse211.lab3;
 
+import static ca.mcgill.ecse211.lab3.Resources.FORWARD_SPEED;
+import static ca.mcgill.ecse211.lab3.Resources.ROTATE_SPEED;
+import static ca.mcgill.ecse211.lab3.Resources.TILE_SIZE;
+import static ca.mcgill.ecse211.lab3.Resources.leftMotor;
+import static ca.mcgill.ecse211.lab3.Resources.rightMotor;
 import static ca.mcgill.ecse211.lab3.Resources.*;
 import ca.mcgill.ecse211.lab3.Odometer;
 
-public class Navigation implements Runnable {
-  
+public class NavigationCorrection extends UltrasonicController implements Runnable {
+
   private Odometer odometer;
-  public Navigation() {
+  private Sweeper sweeper;
+  
+  public NavigationCorrection() {
     this.odometer = Odometer.getOdometer();
+    this.sweeper = Sweeper.getSweeper();
   }
 
   private static boolean isNavigating = true;
@@ -33,6 +41,88 @@ public class Navigation implements Runnable {
     return convertDistance(Math.PI * TRACK * angle / 360.0);
   }
 
+  @Override
+  public void processUSData(int distance) {
+    filter(distance);
+    if (this.distance < 10) {
+//      sweeper.pauseSweep = true;
+      if (sensorLeft()) {
+        // turn 90 degrees right first
+        leftMotor.setSpeed(ROTATE_SPEED);
+        rightMotor.setSpeed(ROTATE_SPEED);
+
+        leftMotor.rotate(convertAngle(90.0), true);
+        rightMotor.rotate(-convertAngle(90.0), false);
+        
+        // drive forward three tiles
+        leftMotor.setSpeed(FORWARD_SPEED);
+        rightMotor.setSpeed(FORWARD_SPEED);
+
+        leftMotor.rotate(convertDistance(TILE_SIZE), true);
+        rightMotor.rotate(convertDistance(TILE_SIZE), false);
+        
+        // turn 90 degrees left second
+        leftMotor.setSpeed(ROTATE_SPEED);
+        rightMotor.setSpeed(ROTATE_SPEED);
+
+        rightMotor.rotate(convertAngle(90.0), true);
+        leftMotor.rotate(-convertAngle(90.0), false);
+        
+        // drive forward three tiles
+        leftMotor.setSpeed(FORWARD_SPEED);
+        rightMotor.setSpeed(FORWARD_SPEED);
+
+        leftMotor.rotate(convertDistance(TILE_SIZE), true);
+        rightMotor.rotate(convertDistance(TILE_SIZE), false);
+      }
+      else {
+        for (int i = 0; i < 2; i++) {
+          // turn 90 degrees left first
+          leftMotor.setSpeed(ROTATE_SPEED);
+          rightMotor.setSpeed(ROTATE_SPEED);
+  
+          rightMotor.rotate(convertAngle(90.0), true);
+          leftMotor.rotate(-convertAngle(90.0), false);
+          
+          // drive forward three tiles
+          leftMotor.setSpeed(FORWARD_SPEED);
+          rightMotor.setSpeed(FORWARD_SPEED);
+  
+          leftMotor.rotate(convertDistance(TILE_SIZE), true);
+          rightMotor.rotate(convertDistance(TILE_SIZE), false);
+          
+          // turn 90 degrees right second
+          leftMotor.setSpeed(ROTATE_SPEED);
+          rightMotor.setSpeed(ROTATE_SPEED);
+  
+          leftMotor.rotate(convertAngle(90.0), true);
+          rightMotor.rotate(-convertAngle(90.0), false);
+          
+          // drive forward three tiles
+          leftMotor.setSpeed(FORWARD_SPEED);
+          rightMotor.setSpeed(FORWARD_SPEED);
+  
+          leftMotor.rotate(convertDistance(TILE_SIZE), true);
+          rightMotor.rotate(convertDistance(TILE_SIZE), false);
+        }
+      }
+    }
+  }
+
+  @Override
+  public int readUSDistance() {
+    return this.distance;
+  }
+  
+  public boolean sensorLeft() {
+    if (sensorMotor.getTachoCount() > 45) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+  
   /**
    * The run method
    */
@@ -46,7 +136,7 @@ public class Navigation implements Runnable {
     odometer.setY(TILE_SIZE);
     odometer.setTheta(0);
     // travel to coordinates
-    travelTo(3, 2);
+    travelTo(3, 3);
     travelTo(2, 2);
     travelTo(2, 3);
     travelTo(3, 1);
@@ -59,6 +149,7 @@ public class Navigation implements Runnable {
    * @param y Y-Coordinate
    */
   private void travelTo(double x, double y) {
+    filter(distance);
     double currentPosition[] = odometer.getXYT();
     double currentX = currentPosition[0]; //get current x position
     double currentY = currentPosition[1]; //get current y position
@@ -126,5 +217,6 @@ public class Navigation implements Runnable {
     return false; // TODO
   }
 
+  
 
 }

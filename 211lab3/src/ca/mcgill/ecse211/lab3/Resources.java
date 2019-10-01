@@ -56,24 +56,22 @@ public class Resources {
    * The ultrasonic sensor.
    */
   public static final EV3UltrasonicSensor US_SENSOR = 
-      new EV3UltrasonicSensor(LocalEV3.get().getPort("S2"));
+      new EV3UltrasonicSensor(LocalEV3.get().getPort("S3"));
   
   /**
    * The left motor.
    */
   public static final EV3LargeRegulatedMotor leftMotor =
-      new EV3LargeRegulatedMotor(LocalEV3.get().getPort("A"));
+      new EV3LargeRegulatedMotor(LocalEV3.get().getPort("C"));
 
   /**
    * The right motor.
    */
   public static final EV3LargeRegulatedMotor rightMotor =
-      new EV3LargeRegulatedMotor(LocalEV3.get().getPort("B"));
-  
-  /**
-   * The color sensor.
-   */
-  public static final EV3ColorSensor colorSensor = new EV3ColorSensor(SensorPort.S1);
+      new EV3LargeRegulatedMotor(LocalEV3.get().getPort("D"));
+
+  public static final EV3LargeRegulatedMotor sensorMotor =
+      new EV3LargeRegulatedMotor(LocalEV3.get().getPort("A"));
 
   /**
    * The LCD.
@@ -84,5 +82,10 @@ public class Resources {
    * The odometer.
    */
   public static Odometer odometer = Odometer.getOdometer();
+  
+  /**
+   * The sweeper.
+   */
+  public static Sweeper sweeper = Sweeper.getSweeper();
   
 }
