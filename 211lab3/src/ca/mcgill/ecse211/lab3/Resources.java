@@ -3,8 +3,6 @@ package ca.mcgill.ecse211.lab3;
 import lejos.hardware.ev3.LocalEV3;
 import lejos.hardware.lcd.TextLCD;
 import lejos.hardware.motor.EV3LargeRegulatedMotor;
-import lejos.hardware.port.SensorPort;
-import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.hardware.sensor.EV3UltrasonicSensor;
 
 /**
@@ -82,10 +80,5 @@ public class Resources {
    * The odometer.
    */
   public static Odometer odometer = Odometer.getOdometer();
-  
-  /**
-   * The sweeper.
-   */
-  public static Sweeper sweeper = Sweeper.getSweeper();
   
 }

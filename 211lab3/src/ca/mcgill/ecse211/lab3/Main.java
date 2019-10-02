@@ -5,8 +5,6 @@ import lejos.hardware.Button;
 
 // static import to avoid duplicating variables and make the code easier to read
 import static ca.mcgill.ecse211.lab3.Resources.*;
-import ca.mcgill.ecse211.lab3.UltrasonicController;
-import ca.mcgill.ecse211.lab3.UltrasonicPoller;
 
 
 /**
@@ -14,7 +12,6 @@ import ca.mcgill.ecse211.lab3.UltrasonicPoller;
  */
 public class Main {
 
-  public static UltrasonicController selectedController;
   /**
    * The main entry point.
    * 
@@ -30,16 +27,12 @@ public class Main {
       new Thread(new Navigation()).start();
     }
     else {
-      new Thread(sweeper).start();
-      selectedController = new NavigationCorrection();
       new Thread(new NavigationCorrection()).start();
-      new Thread(new UltrasonicPoller()).start();
     }
     
     new Thread(new Display()).start();
     while (Button.waitForAnyPress() != Button.ID_ESCAPE) {
     } // do nothing
-    
     System.exit(0);
   }
 
