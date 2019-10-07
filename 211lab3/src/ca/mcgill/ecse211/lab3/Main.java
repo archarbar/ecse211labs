@@ -19,15 +19,15 @@ public class Main {
    */
   public static void main(String[] args) {
     int buttonChoice;
-    new Thread(odometer).start(); // TODO implement Odometer
+    //new Thread(odometer).start(); // TODO implement Odometer
     
-    buttonChoice = chooseAvoidanceOrNot();
+    buttonChoice = chooseRisingOrFalling();
 
     if (buttonChoice == Button.ID_LEFT) {
-      new Thread(new Navigation()).start();
+      UltrasonicLocalizer UltrasonicLocalizer = new UltrasonicLocalizer();
     }
     else {
-      new Thread(new NavigationCorrection()).start();
+      
     }
     
     new Thread(new Display()).start();
@@ -41,14 +41,13 @@ public class Main {
    * 
    * @return the user choice
    */
-  private static int chooseAvoidanceOrNot() {
+  private static int chooseRisingOrFalling() {
     int buttonChoice;
     Display.showText("< Left | Right >",
                      "       |        ",
-                     " No    | With   ",
-                     "avoidan| avoidan",
-                     " -ce   | -ce    ");
-    
+                     " Rising| Falling",
+                     "  edge |  edge  ",
+                     "       |        ");
     do {
       buttonChoice = Button.waitForAnyPress(); // left or right press
     } while (buttonChoice != Button.ID_LEFT && buttonChoice != Button.ID_RIGHT);
