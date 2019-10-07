@@ -3676,3 +3676,37 @@ java.net.UnknownHostException: download.eclipse.org
 	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientFileSystemBrowser.runRequest(HttpClientFileSystemBrowser.java:263)
 	at org.eclipse.ecf.provider.filetransfer.browse.AbstractFileSystemBrowser$DirectoryJob.run(AbstractFileSystemBrowser.java:69)
 	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:56)
+
+!ENTRY org.lejos.ev3.ldt 4 0 2019-10-07 13:15:33.230
+!MESSAGE Connection refused to host: 192.168.2.12; nested exception is: 
+	java.net.ConnectException: Connection timed out: connect
+!STACK 0
+java.rmi.ConnectException: Connection refused to host: 192.168.2.12; nested exception is: 
+	java.net.ConnectException: Connection timed out: connect
+	at sun.rmi.transport.tcp.TCPEndpoint.newSocket(Unknown Source)
+	at sun.rmi.transport.tcp.TCPChannel.createConnection(Unknown Source)
+	at sun.rmi.transport.tcp.TCPChannel.newConnection(Unknown Source)
+	at sun.rmi.server.UnicastRef.newCall(Unknown Source)
+	at sun.rmi.registry.RegistryImpl_Stub.lookup(Unknown Source)
+	at java.rmi.Naming.lookup(Unknown Source)
+	at org.lejos.ev3.ldt.launch.LaunchEV3ConfigDelegate.launch(LaunchEV3ConfigDelegate.java:220)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:885)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:739)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:1039)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin$8.run(DebugUIPlugin.java:1256)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:56)
+Caused by: java.net.ConnectException: Connection timed out: connect
+	at java.net.DualStackPlainSocketImpl.connect0(Native Method)
+	at java.net.DualStackPlainSocketImpl.socketConnect(Unknown Source)
+	at java.net.AbstractPlainSocketImpl.doConnect(Unknown Source)
+	at java.net.AbstractPlainSocketImpl.connectToAddress(Unknown Source)
+	at java.net.AbstractPlainSocketImpl.connect(Unknown Source)
+	at java.net.PlainSocketImpl.connect(Unknown Source)
+	at java.net.SocksSocketImpl.connect(Unknown Source)
+	at java.net.Socket.connect(Unknown Source)
+	at java.net.Socket.connect(Unknown Source)
+	at java.net.Socket.<init>(Unknown Source)
+	at java.net.Socket.<init>(Unknown Source)
+	at sun.rmi.transport.proxy.RMIDirectSocketFactory.createSocket(Unknown Source)
+	at sun.rmi.transport.proxy.RMIMasterSocketFactory.createSocket(Unknown Source)
+	... 12 more

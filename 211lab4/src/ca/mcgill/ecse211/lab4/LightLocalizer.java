@@ -35,9 +35,17 @@ public class LightLocalizer implements Runnable{
   }
   
   public void run() {
-    findDistance();
+    moveToDestination();
   }
-  private void findDistance() {
+  /**
+   * Since the robot is already oriented at 0 degrees, make it go forward
+   * until it reaches a line. This is the horizontal line of the destination.
+   * Back up 5 centimeters to know the vertical distance to travel to reach destination,
+   * make a right turn and go forward until a line is reached. This is the vertical 
+   * line of destination. Make a left turn and go forward by 5 centimeters and 
+   * destination is reached.
+   */
+  private void moveToDestination() {
     leftMotor.stop();
     rightMotor.stop();
     leftMotor.setAcceleration(ACCELERATION);
@@ -50,24 +58,30 @@ public class LightLocalizer implements Runnable{
     while (true) {
       colorSampleProvider.fetchSample(csData, 0); //get data from sensor
       if(csData[0] < LINE_RED_INTENSITY) { //if light read by sensor is smaller (darker) than red light, eg., black lines
+        leftMotor.stop(true); //stop the robot when a line is detected
+        rightMotor.stop(false);
         Sound.beep(); // sound alert to know when the sensor hits a line
-        leftMotor.stop(true);
-        rightMotor.stop(true);
-        leftMotor.rotate(convertDistance(-5), true);
+        leftMotor.rotate(convertDistance(-5), true); //make the robot back up 5 centimeters so we know its vertical distance to destination
         rightMotor.rotate(convertDistance(-5), false);
-        leftMotor.rotate(convertAngle(90.0), true);
+        leftMotor.rotate(convertAngle(90.0), true); //make a right turn
         rightMotor.rotate(-convertAngle(90.0), false);
-        leftMotor.forward();
-        rightMotor.forward();
-        if(csData[0] < LINE_RED_INTENSITY) { //if light read by sensor is smaller (darker) than red light, eg., black lines
-          Sound.beep();
-          leftMotor.rotate(-convertAngle(90.0), true);
-          rightMotor.rotate(convertAngle(90.0), false);
-          leftMotor.rotate(convertDistance(2), true);
-          rightMotor.rotate(convertDistance(2), false);
-        }
+        break;
       }
     }
-
+    while(true) {
+      colorSampleProvider.fetchSample(csData, 0); //get data from sensor
+      leftMotor.forward(); //move forward until a black line is encountered
+      rightMotor.forward();
+      if(csData[0] < LINE_RED_INTENSITY) { //if light read by sensor is smaller (darker) than red light, eg., black lines
+        leftMotor.stop(true); //stop the motors when a line is detected
+        rightMotor.stop(false);
+        Sound.beep();
+        leftMotor.rotate(-convertAngle(90.0), true); //make a left turn
+        rightMotor.rotate(convertAngle(90.0), false);
+        leftMotor.rotate(convertDistance(5), true); //go forward 5 centimeters to get to destination
+        rightMotor.rotate(convertDistance(5), false);
+        break;
+      }
+    }
   }
 }
