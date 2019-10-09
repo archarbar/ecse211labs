@@ -50,9 +50,9 @@ public class LightLocalizer implements Runnable{
     rightMotor.stop();
     leftMotor.setAcceleration(ACCELERATION);
     rightMotor.setAcceleration(ACCELERATION);
-    leftMotor.setSpeed(FORWARD_SPEED);
+    leftMotor.setSpeed(FORWARD_SPEED); //set speed to forward speed
     rightMotor.setSpeed(FORWARD_SPEED);
-    leftMotor.forward();
+    leftMotor.forward(); //move forward until line is reached
     rightMotor.forward();
     
     while (true) {
@@ -78,7 +78,7 @@ public class LightLocalizer implements Runnable{
         Sound.beep();
         leftMotor.rotate(-convertAngle(90.0), true); //make a left turn
         rightMotor.rotate(convertAngle(90.0), false);
-        leftMotor.rotate(convertDistance(5), true); //go forward 5 centimeters to get to destination
+        leftMotor.rotate(convertDistance(5), true); //go forward 5 centimeters to reach to destination
         rightMotor.rotate(convertDistance(5), false);
         break;
       }

@@ -1,35 +1,24 @@
-// Lab3.java
+// Lab4.java
 package ca.mcgill.ecse211.lab4;
 
 import lejos.hardware.Button;
 
 // static import to avoid duplicating variables and make the code easier to read
-import static ca.mcgill.ecse211.lab4.Resources.*;
 
 
 /**
- * The main driver class for the odometry lab.
+ * The main driver class for the localization lab.
  */
 public class Main {
-
+  public static int buttonChoice;
   /**
    * The main entry point.
    * 
    * @param args
    */
   public static void main(String[] args) {
-    int buttonChoice;
-    new Thread(odometer).start(); // TODO implement Odometer
-    
-    buttonChoice = chooseAvoidanceOrNot();
-
-    if (buttonChoice == Button.ID_LEFT) {
-      new Thread(new LightLocalizer()).start();
-    }
-    else {
-     // new Thread(new NavigationCorrection()).start();
-    }
-    
+    buttonChoice = chooseRisingOrFalling();
+    new Thread(new UltrasonicLocalizer()).start();
     new Thread(new Display()).start();
     while (Button.waitForAnyPress() != Button.ID_ESCAPE) {
     } // do nothing
@@ -41,14 +30,13 @@ public class Main {
    * 
    * @return the user choice
    */
-  private static int chooseAvoidanceOrNot() {
+  private static int chooseRisingOrFalling() {
     int buttonChoice;
     Display.showText("< Left | Right >",
                      "       |        ",
-                     " Light    | With   ",
-                     "localizer| avoidan",
-                     "     | -ce    ");
-    
+                     " Rising|Falling ",
+                     "  edge | edge   ",
+                     "       |        ");
     do {
       buttonChoice = Button.waitForAnyPress(); // left or right press
     } while (buttonChoice != Button.ID_LEFT && buttonChoice != Button.ID_RIGHT);

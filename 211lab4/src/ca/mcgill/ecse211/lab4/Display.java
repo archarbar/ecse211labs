@@ -10,7 +10,6 @@ import static ca.mcgill.ecse211.lab4.Resources.*;
  */
 public class Display implements Runnable {
 
-  private double[] position;
   private final long DISPLAY_PERIOD = 25;
   private long timeout = Long.MAX_VALUE;
 
@@ -24,14 +23,7 @@ public class Display implements Runnable {
     do {
       updateStart = System.currentTimeMillis();
 
-      // Retrieve x, y and Theta information
-      position = odometer.getXYT();
-      
-      // Print x,y, and theta information
-      DecimalFormat numberFormat = new DecimalFormat("######0.00");
-      LCD.drawString("X: " + numberFormat.format(position[0]), 0, 0);
-      LCD.drawString("Y: " + numberFormat.format(position[1]), 0, 1);
-      LCD.drawString("T: " + numberFormat.format(position[2]), 0, 2);
+
       
       // this ensures that the data is updated only once every period
       updateEnd = System.currentTimeMillis();
@@ -43,7 +35,6 @@ public class Display implements Runnable {
         }
       }
     } while ((updateEnd - tStart) <= timeout);
-
   }
   
   /**
